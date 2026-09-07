@@ -1,5 +1,6 @@
 # useless_project
 # 🐌 SnailGram
+# run:https://snailgram-gram-f73a42.netlify.app/
 
 ### The World's Slowest Social Network 🌿
 
