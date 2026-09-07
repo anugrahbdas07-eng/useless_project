@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnailGram 🐌 — Presentation Deck (Pitch Deck)</title>
+  
+  <!-- Google Fonts: Fredoka & Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0d1a12;
+      --bg-surface: #14241a;
+      --bg-card: rgba(26, 46, 34, 0.75);
+      --primary: #4CAF50;
+      --primary-light: #81C784;
+      --accent-gold: #FFB300;
+      --accent-pink: #E91E63;
+      --text-main: #F1F8E9;
+      --text-muted: #A5D6A7;
+      --border: rgba(76, 175, 80, 0.25);
+      --glass-blur: blur(14px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at 50% 20%, #1c3525 0%, var(--bg-dark) 100%);
+      color: var(--text-main);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top HUD / Controls Bar */
+    header.deck-hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 2rem;
+      background: rgba(13, 26, 18, 0.85);
+      backdrop-filter: var(--glass-blur);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Fredoka', cursive;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #FFF;
+      text-decoration: none;
+    }
+
+    .brand-logo span.badge {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: var(--primary);
+      color: #000;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+    }
+
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-hud {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .btn-hud:hover, .btn-hud.active {
+      background: var(--primary);
+      color: #000;
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* Slides Viewport */
+    main.deck-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 3rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.96) translateY(20px);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1) translateY(0);
+    }
+
+    /* Slide Typography */
+    .slide-tagline {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--primary-light);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .slide-title {
+      font-family: 'Fredoka', cursive;
+      font-size: 3.2rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(120deg, #FFFFFF 0%, var(--primary-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 850px;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      backdrop-filter: var(--glass-blur);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+    }
+
+    .card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .card-title {
+      font-family: 'Fredoka', cursive;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #FFF;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: #C8E6C9;
+      line-height: 1.5;
+    }
+
+    /* Badges & Tags */
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(76, 175, 80, 0.15);
+      border: 1px solid var(--border);
+      color: var(--primary-light);
+    }
+
+    /* Title Slide Specifics */
+    .title-authors-badge {
+      margin-top: 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+    }
+
+    .author-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Screenshot Preview Frame */
+    .screenshot-frame {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(76, 175, 80, 0.4);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      background: #000;
+      position: relative;
+    }
+
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .screenshot-frame:hover img {
+      transform: scale(1.02);
+    }
+
+    /* Comparison Table / Box */
+    .vs-box {
+      background: rgba(0,0,0,0.3);
+      border-radius: 14px;
+      padding: 1.25rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .vs-header {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Speaker Notes Drawer */
+    #notes-drawer {
+      position: fixed;
+      bottom: 60px;
+      right: 20px;
+      width: 440px;
+      max-height: 280px;
+      background: rgba(10, 20, 14, 0.95);
+      border: 1px solid var(--primary);
+      border-radius: 14px;
+      padding: 1.25rem;
+      backdrop-filter: var(--glass-blur);
+      z-index: 200;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.7);
+      overflow-y: auto;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    #notes-drawer.hidden {
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .notes-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .notes-content {
+      font-size: 0.88rem;
+      color: #E8F5E9;
+      line-height: 1.6;
+    }
+
+    .notes-cue {
+      color: #81C784;
+      font-weight: 600;
+      display: block;
+      margin-top: 0.4rem;
+    }
+
+    /* Bottom Status & Progress */
+    footer.deck-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 2rem;
+      background: rgba(13, 26, 18, 0.85);
+      border-top: 1px solid var(--border);
+      z-index: 100;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .progress-track {
+      flex: 1;
+      max-width: 400px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      margin: 0 1.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 10%;
+      background: linear-gradient(90deg, var(--primary), var(--accent-gold));
+      transition: width 0.3s ease;
+      box-shadow: 0 0 8px var(--primary);
+    }
+
+    /* Live Snail Animation on Slide */
+    .mini-walking-snail {
+      display: inline-block;
+      animation: snailBob 1.2s ease-in-out infinite;
+    }
+
+    @keyframes snailBob {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-4px) rotate(-2deg); }
+    }
+
+    /* Keycaps indicator */
+    kbd {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      font-size: 0.7rem;
+      font-family: monospace;
+      color: #FFF;
+    }
+
+    /* Print styling */
+    @media print {
+      body {
+        height: auto;
+        overflow: visible;
+        background: #0d1a12 !important;
+        -webkit-print-color-adjust: exact;
+      }
+      header.deck-hud, footer.deck-footer, #notes-drawer {
+        display: none !important;
+      }
+      .slide {
+        position: relative !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: none !important;
+        page-break-after: always;
+        height: 100vh;
+        padding: 4rem !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header HUD -->
+  <header class="deck-hud">
+    <a href="index.html" class="brand-logo" title="Back to SnailGram App">
+      <span>🐌</span>
+      <span>SnailGram</span>
+      <span class="badge">KEYNOTE PITCH DECK</span>
+    </a>
+
+    <div class="deck-controls">
+      <button class="btn-hud" onclick="toggleSpeakerNotes()" id="btn-notes" title="Toggle Presenter Notes (N)">
+        📝 Notes <kbd>N</kbd>
+      </button>
+      <button class="btn-hud" onclick="toggleSound()" id="btn-sound" title="Toggle Sound FX">
+        🔊 Sound: ON
+      </button>
+      <button class="btn-hud" onclick="window.print()" title="Print to PDF / Handouts">
+        🖨️ Export PDF <kbd>P</kbd>
+      </button>
+      <button class="btn-hud" onclick="toggleFullScreen()" title="Enter Fullscreen (F)">
+        ⛶ Fullscreen <kbd>F</kbd>
+      </button>
+      <a href="index.html" class="btn-hud" style="background: var(--primary); color: #000; font-weight: 700;">
+        🚀 Open Live App
+      </a>
+    </div>
+  </header>
+
+  <!-- Slide Viewport -->
+  <main class="deck-viewport" id="deck-viewport">
+
+    <!-- ================= SLIDE 1: TITLE ================= -->
+    <section class="slide active" data-slide="1">
+      <div class="slide-tagline">
+        <span>🌿</span> INNOVATION & USELESS PROJECT SHOWCASE
+      </div>
+      <h1 class="slide-title">🐌 SnailGram</h1>
+      <p class="slide-subtitle">
+        <strong>Connect. Share. Wait.</strong><br/>
+        The world's first intentionally slow social-media platform built exclusively for virtual gastropods.
+      </p>
+
+      <div class="grid-3 my-4">
+        <div class="feature-card">
+          <div class="card-icon">⏱️</div>
+          <div class="card-title">Everything is Slow</div>
+          <p class="card-desc">Likes take time. Following takes time. Messages take physical courier journeys across moist garden mulch.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🥬</div>
+          <div class="card-title">The Leaf Economy</div>
+          <p class="card-desc">Organic currency powered by slow living. Earn leaves by waiting; spend them on artisanal romaine and shell couture.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">📍</div>
+          <div class="card-title">Snail GPS Telemetry</div>
+          <p class="card-desc">Real-time snail positioning tracking speeds from 0.0004 km/h to our supersonic world record of 0.0012 km/h.</p>
+        </div>
+      </div>
+
+      <div class="title-authors-badge">
+        <div class="author-item">
+          <span>👨‍💻</span> <strong>Shivang Sharma</strong> (Lead Architect)
+        </div>
+        <span style="color: var(--border);">|</span>
+        <div class="author-item">
+          <span>👨‍💻</span> <strong>Anugrah B Das</strong> (Co-Developer & Snail Physics)
+        </div>
+        <span style="color: var(--border);">|</span>
+        <div class="author-item">
+          <span>🏆</span> <em>College Innovation Competition 2026</em>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 2: THE PROBLEM ================= -->
+    <section class="slide" data-slide="2">
+      <div class="slide-tagline">🚨 THE PROBLEM STATEMENT</div>
+      <h2 class="slide-title">Human Social Media Is Exhausting</h2>
+      <p class="slide-subtitle">
+        Silicon Valley engineered platforms for hyper-speed dopamine addiction. But what about the 60,000+ species of snails on Earth?
+      </p>
+
+      <div class="grid-2">
+        <div class="vs-box" style="border-color: rgba(244, 67, 54, 0.4);">
+          <div class="vs-header" style="color: #FF8A80;">
+            <span>❌</span> Human Instagram (Overstimulation)
+          </div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.95rem; color: #FFCDD2;">
+            <li>⚡ <strong>Instant notifications</strong> causing cortisol spikes & anxiety.</li>
+            <li>🌪️ <strong>120 FPS infinite scrolling</strong> designed for brain-rot dopamine loops.</li>
+            <li>🏃 <strong>FOMO & hustle culture:</strong> "Move fast and break things."</li>
+            <li>🚫 <strong>Zero gastropod accessibility:</strong> No sliders for moist mucus trails.</li>
+          </ul>
+        </div>
+
+        <div class="vs-box" style="border-color: rgba(76, 175, 80, 0.5);">
+          <div class="vs-header" style="color: #A5D6A7;">
+            <span>✅</span> Snail Reality (Biological Truth)
+          </div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.95rem; color: #E8F5E9;">
+            <li>🐌 <strong>Top sprint speed:</strong> 0.0007 km/h on moist concrete.</li>
+            <li>🥗 <strong>Core life priority:</strong> Chewing 1 leaf over a 4-day weekend.</li>
+            <li>😴 <strong>Dormancy:</strong> 16-hour beauty sleeps inside the shell.</li>
+            <li>🧘 <strong>Radical patience:</strong> If something takes 15 seconds, it's a blessing.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 3: PRODUCT PHILOSOPHY ================= -->
+    <section class="slide" data-slide="3">
+      <div class="slide-tagline">💡 THE CORE VISION</div>
+      <h2 class="slide-title">Serious Product. Unserious Problem.</h2>
+      <p class="slide-subtitle">
+        SnailGram is not a sloppy joke site. It is an exquisitely engineered, full-scale social network that takes snail constraints completely seriously.
+      </p>
+
+      <div class="grid-4">
+        <div class="feature-card text-center">
+          <div class="card-icon">🐌</div>
+          <div class="card-title">Snail Internet™</div>
+          <p class="card-desc">The network itself is physical. Data is carried on shells across flowerbeds, not sent over fiber optics.</p>
+        </div>
+        <div class="feature-card text-center">
+          <div class="card-icon">🛡️</div>
+          <div class="card-title">Anti-Spam Delay</div>
+          <p class="card-desc">Liking 3 posts in 5 seconds triggers the <strong>Garden Speed Limit Citation</strong> and a temporary salt ban.</p>
+        </div>
+        <div class="feature-card text-center">
+          <div class="card-icon">🥬</div>
+          <div class="card-title">Leaf Treasury</div>
+          <p class="card-desc">Decentralized mulch currency. No fiat, no crypto — only fresh organic romaine & dandelions.</p>
+        </div>
+        <div class="feature-card text-center">
+          <div class="card-icon">🚪</div>
+          <div class="card-title">Slow Logout</div>
+          <p class="card-desc">Logging out takes a 15-second bureaucratic delay to confirm your snail has retreated safely into its shell.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 4: ARCHITECTURE ================= -->
+    <section class="slide" data-slide="4">
+      <div class="slide-tagline">🏛️ FULL SOCIAL MEDIA SUITE</div>
+      <h2 class="slide-title">Everything You Expect — Just Slower</h2>
+      <p class="slide-subtitle">
+        A complete, rich social platform containing 8 dedicated modules working in harmonious slow-motion.
+      </p>
+
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="card-icon">📸</div>
+          <div class="card-title">Home Feed & Stories</div>
+          <p class="card-desc">Story rings that expire in 16 hours. Posts featuring hydrated velvety sage leaves, moisture reviews, and dewdrop selfies.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🎬</div>
+          <div class="card-title">Snail Reels™</div>
+          <p class="card-desc">16 vertical short-form slow videos: Breakdancing at 0.0003 km/h, 16-hour ASMR shell sleep, and Gordon Radula food critiques.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🗺️</div>
+          <div class="card-title">The Garden Map</div>
+          <p class="card-desc">Interactive territory map showing snails actively crawling between The Ancient Oak, Leaf Market, and Dewdrop Pond.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">💬</div>
+          <div class="card-title">Snail DMs & Calls</div>
+          <p class="card-desc">Direct messaging with a physical walking courier snail carrying letters, plus tin-can voice calls & 0.5 FPS webcams.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">📊</div>
+          <div class="card-title">0% Analytics</div>
+          <p class="card-desc">Creator dashboard tracking Slime Viscosity (99.4%), time wasted watching snails, and zero click-through rates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🎩</div>
+          <div class="card-title">Wardrobe & Shell Customizer</div>
+          <p class="card-desc">Customize shell colors, body palettes, fedoras, crowns, and racing stripes with earned leaf savings.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 5: SNAIL DMs & COURIER ================= -->
+    <section class="slide" data-slide="5">
+      <div class="slide-tagline">📦 BREAKTHROUGH FEATURE</div>
+      <h2 class="slide-title">The Physical Snail Courier Delivery Engine</h2>
+      <p class="slide-subtitle">
+        Forget websockets delivering packets in 12 milliseconds. In Snail DMs, an actual courier snail walks your letter across the screen!
+      </p>
+
+      <div class="grid-2">
+        <div>
+          <div class="pill-badge mb-3">⏱️ DELIBERATE 6–7 SECOND COURIER TRANSIT</div>
+          <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+            <div class="feature-card p-3">
+              <strong>Step 1: Slime Packaging (2s)</strong>
+              <p class="card-desc">Sealing message into waterproof mucus envelope.</p>
+            </div>
+            <div class="feature-card p-3">
+              <strong>Step 2: Flowerbed Highway (2s)</strong>
+              <p class="card-desc">Crawling over moist cedar mulch at 0.0007 km/h with a glowing slime trail.</p>
+            </div>
+            <div class="feature-card p-3">
+              <strong>Step 3: Dandelion Break (1s)</strong>
+              <p class="card-desc">Courier pauses to take a brief leaf nibble for hydration.</p>
+            </div>
+            <div class="feature-card p-3">
+              <strong>Step 4: Shell Inbox Delivery (1-2s)</strong>
+              <p class="card-desc">Scaling recipient's flowerpot and dropping letter into mailbox 📬.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card text-center" style="padding: 2.5rem 1.5rem; background: rgba(0,0,0,0.5);">
+          <div style="font-size: 3.5rem; margin-bottom: 1rem;">
+            <span class="mini-walking-snail">🐌</span><span style="font-size: 2rem; vertical-align: super;">✉️</span>
+          </div>
+          <h3 class="card-title">Live In-Chat Walking Track</h3>
+          <p class="card-desc" style="max-width: 320px; margin: 0 auto 1.5rem;">
+            Users watch the progress bar illuminate with glowing green slime while countdown timers forecast the exact time to the next step!
+          </p>
+          <div class="pill-badge" style="background: rgba(255, 179, 0, 0.2); border-color: var(--accent-gold); color: #FFE082;">
+            📞 Plus: Voice Calls & 0.5 FPS Video Cam!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 6: SNAIL REELS ================= -->
+    <section class="slide" data-slide="6">
+      <div class="slide-tagline">🎬 VIRAL ENTERTAINMENT</div>
+      <h2 class="slide-title">Snail Reels™: The Slowest Vertical Feed</h2>
+      <p class="slide-subtitle">
+        16 custom vertical reels featuring full animated vector scenes, comedy sound tracks, and hilarious snail lore.
+      </p>
+
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="card-icon">🕺</div>
+          <div class="card-title">The Slime Shuffle</div>
+          <p class="card-desc">Breakdancing at 0.0003 km/h under strobe hydrangea disco lights. High-energy gastropod rave.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">💕</div>
+          <div class="card-title">Awkward Snail Date</div>
+          <p class="card-desc">Taking girlfriend Shelly to a 5-star compost buffet. Fighting over who pays for the dandelion greens.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">💤</div>
+          <div class="card-title">16-Hour ASMR Sleep</div>
+          <p class="card-desc">Moonlight shell slumber. Zero movements. The ultimate anti-anxiety content on the internet.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🥬</div>
+          <div class="card-title">Butterhead Mukbang</div>
+          <p class="card-desc">Extreme radula chewing audio with 40,000 microscopic teeth tearing into crisp organic lettuce.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🎮</div>
+          <div class="card-title">0.2 APM Snail Gamer</div>
+          <p class="card-desc">Pro esports snail playing Minecraft. Mining one cobblestone block takes approximately 3 days.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">👨‍🍳</div>
+          <div class="card-title">Gordon Radula's Review</div>
+          <p class="card-desc">"THIS MULCH IS RAW! YOU CALL THIS COMPOST?!" Scathing culinary reviews of local garden soil.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 7: LIVE SCREENSHOT SHOWCASE ================= -->
+    <section class="slide" data-slide="7">
+      <div class="slide-tagline">✨ LIVE PRODUCT SHOWCASE</div>
+      <h2 class="slide-title">Crafted with Extreme Polish</h2>
+      <p class="slide-subtitle">
+        A seamless modern web application featuring glassmorphism, responsive 3-column desktop layout, and custom typography.
+      </p>
+
+      <div class="grid-2">
+        <div class="screenshot-frame">
+          <img src="assets/screenshot.png" alt="SnailGram Live Interface" />
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <div class="feature-card">
+            <strong style="color: var(--primary-light);">🌟 Gary The Great (@Gary_The_Great)</strong>
+            <p class="card-desc">Verified Chief Mucus Influencer posting velvety sage leaves with dewdrop highlights.</p>
+          </div>
+          <div class="feature-card">
+            <strong style="color: #64B5F6;">💧 Slime Viscosity Monitor</strong>
+            <p class="card-desc">Live status widget: 99.4% Slippery. Status: Extremely moist. Safe from birds.</p>
+          </div>
+          <div class="feature-card">
+            <strong style="color: var(--accent-gold);">🍃 245 Leaves Treasury</strong>
+            <p class="card-desc">Dynamic currency bar tracking savings earned from slow living and community engagement.</p>
+          </div>
+          <div class="feature-card">
+            <strong style="color: #BA68C8;">🐌 Story Highlights Carousel</strong>
+            <p class="card-desc">Round avatar story rings for Gary, TurboSnail, LeafLover, Prof, Paranoid, and Snoozy.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 8: ENGINEERING & TECH STACK ================= -->
+    <section class="slide" data-slide="8">
+      <div class="slide-tagline">⚙️ UNDER THE HOOD</div>
+      <h2 class="slide-title">Technical Architecture & Engineering</h2>
+      <p class="slide-subtitle">
+        Zero heavyweight dependencies. 100% pure modern web engineering running at 60 FPS (simulating 0.0007 km/h).
+      </p>
+
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="card-icon">⚡</div>
+          <div class="card-title">Vanilla ES6+ OOP Engine</div>
+          <p class="card-desc">Clean modular architecture with centralized Event-Driven State Store (Pub/Sub) and automatic LocalStorage syncing.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🎨</div>
+          <div class="card-title">Glassmorphism UI</div>
+          <p class="card-desc">Deep CSS3 backdrop filters, dynamic fluid CSS Grid layouts, and bespoke SVG vector art for every snail personality.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🎵</div>
+          <div class="card-title">Web Audio Synthesizer</div>
+          <p class="card-desc">Procedural Web Audio API engine synthesizing bubbly pops, cartoon boing chimes, and mollusk formant gibberish on the fly!</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🤖</div>
+          <div class="card-title">Conversational AI Chat</div>
+          <p class="card-desc">Dynamic keyword-matching personality bots with prompt chips for Gary, Turbo, Shelly, and Prof Slime.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">📱</div>
+          <div class="card-title">100% Responsive</div>
+          <p class="card-desc">Dedicated desktop 3-column shell, tablet adaptive grids, and mobile bottom navigation drawer.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">🔒</div>
+          <div class="card-title">Zero Server Bloat</div>
+          <p class="card-desc">100% client-side simulation. Works fully offline in any browser with instant cold boot and zero external API failure points.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 9: COMPETITION IMPACT ================= -->
+    <section class="slide" data-slide="9">
+      <div class="slide-tagline">🏆 INNOVATION & COMPETITION VICTORY</div>
+      <h2 class="slide-title">Why SnailGram Wins the Competition</h2>
+      <p class="slide-subtitle">
+        Why judges and audiences fall in love with SnailGram at innovation and useless project competitions:
+      </p>
+
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="card-icon">🎭</div>
+          <div class="card-title">1. Pitch-Perfect Satire</div>
+          <p class="card-desc">Takes Silicon Valley's most pretentious growth hacks (FOMO, verification badges, creator analytics) and filters them through a literal snail lens.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">💎</div>
+          <div class="card-title">2. Extraordinary Polish</div>
+          <p class="card-desc">Most funny projects look like broken hackathon demos. SnailGram looks like a 10-million-dollar Series A startup app.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">📈</div>
+          <div class="card-title">3. Infinite User Retention</div>
+          <p class="card-desc">Our average session duration is 4 hours — because snails physically cannot reach the logout button in time!</p>
+        </div>
+      </div>
+
+      <div class="feature-card mt-4 p-4 text-center" style="background: rgba(76, 175, 80, 0.15); border-color: var(--primary);">
+        <h3 style="color: #FFF; font-size: 1.25rem; margin-bottom: 0.5rem;">Total Addressable Market (TAM)</h3>
+        <p style="color: #E8F5E9; max-width: 750px; margin: 0 auto; font-size: 0.95rem;">
+          60,000+ gastropod species worldwide • <strong>0 Competitors</strong> • 100% market monopoly over garden social networks.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 10: CONCLUSION & DEMO ================= -->
+    <section class="slide" data-slide="10">
+      <div class="slide-tagline">🌿 THE SLOW REVOLUTION</div>
+      <h1 class="slide-title">Join The Slow Network</h1>
+      <p class="slide-subtitle">
+        "Don't rush into anything. Take a sip of dew and explore slowly."
+      </p>
+
+      <div class="feature-card p-4 my-4" style="background: rgba(0,0,0,0.6); max-width: 800px; margin: 0 auto;">
+        <div class="grid-2">
+          <div style="border-right: 1px solid var(--border); padding-right: 1.5rem;">
+            <h4 style="color: var(--primary-light); margin-bottom: 0.5rem;">Developed with ❤️ by:</h4>
+            <p style="font-size: 1.1rem; font-weight: 700; color: #FFF; margin-bottom: 0.25rem;">Shivang Sharma</p>
+            <p style="font-size: 1.1rem; font-weight: 700; color: #FFF;">Anugrah B Das</p>
+            <small class="text-muted d-block mt-2">Full Stack Engineering • Gastropod Physics</small>
+          </div>
+          <div style="padding-left: 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.75rem;">
+            <a href="index.html" class="btn-hud" style="background: var(--primary); color: #000; font-weight: 700; padding: 0.75rem 1.25rem; font-size: 1rem; justify-content: center;">
+              🚀 Launch Live SnailGram App
+            </a>
+            <button class="btn-hud" onclick="playApplause()" style="justify-content: center; padding: 0.6rem 1rem;">
+              👏 Victory Applause
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-3">
+        <span class="pill-badge" style="font-size: 0.85rem; padding: 0.5rem 1.25rem;">
+          🐌 Thank You! Questions are welcome — but please ask slowly. 🌿
+        </span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Speaker Notes Floating Drawer (Toggle with N key) -->
+  <aside id="notes-drawer" class="hidden">
+    <div class="notes-title">
+      <span>📝 Presenter Script & Notes</span>
+      <span id="notes-slide-num">Slide 1 / 10</span>
+    </div>
+    <div class="notes-content" id="notes-text">
+      <!-- Injected via JavaScript based on active slide -->
+    </div>
+  </aside>
+
+  <!-- Bottom Footer Status & Progress -->
+  <footer class="deck-footer">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <button class="btn-hud" onclick="prevSlide()" title="Previous Slide (Arrow Left)">← Prev</button>
+      <button class="btn-hud" onclick="nextSlide()" title="Next Slide (Arrow Right or Space)">Next →</button>
+      <span id="slide-indicator" style="font-weight: 700; color: #FFF; margin-left: 0.5rem;">01 / 10</span>
+    </div>
+
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <div>
+      <span class="text-muted">Developers: <strong>Shivang Sharma & Anugrah B Das</strong></span>
+    </div>
+  </footer>
+
+  <script>
+    // Speaker Notes Data mapped to each slide
+    const SPEAKER_NOTES = {
+      1: `<strong>[INTRO]</strong><br/>"Good morning everyone! Today, Anugrah and I are thrilled to introduce <strong>SnailGram</strong> — the world's first social network designed exclusively for snails. Our motto: <em>Connect. Share. Wait.</em>"<br/><span class="notes-cue">💡 Delivery tip: Speak with solemn seriousness like Steve Jobs introducing the iPhone.</span>`,
+      2: `<strong>[THE PROBLEM]</strong><br/>"Look at human social media: 120 FPS infinite doom-scrolling, cortisol spikes, notification anxiety. But silicon valley completely forgot about gastropods! Snails crawl at 0.0007 km/h, but modern apps demand instant speed."<br/><span class="notes-cue">💡 Delivery tip: Emphasize the contrast between 120 FPS and 0.0007 km/h.</span>`,
+      3: `<strong>[PHILOSOPHY]</strong><br/>"Our design philosophy: <em>Build a serious product for an unserious problem.</em> In SnailGram, everything is deliberately slow. Likes take physical processing time, logging out takes 15 seconds, and spamming likes gets you a Garden Speeding Ticket."<br/><span class="notes-cue">💡 Delivery tip: Pause for 2 seconds to simulate snail latency.</span>`,
+      4: `<strong>[ARCHITECTURE]</strong><br/>"SnailGram isn't just a landing page — it is an 8-module full social network. We have Home Stories that expire after 16 hours, an interactive Garden Map tracking real snails, and our signature Snail Reels™ feed."`,
+      5: `<strong>[SNAIL DMs]</strong><br/>"Here is our breakthrough: Snail DMs! When you send a message, there is NO instant socket transfer. A mini courier snail physically carries the letter across the chat bubble in 4 real steps! From packaging the letter in mucus to climbing the flowerpot inbox!"<br/><span class="notes-cue">💡 Delivery tip: Click 'Launch Live SnailGram' to demonstrate this live!</span>`,
+      6: `<strong>[SNAIL REELS]</strong><br/>"Meet Snail Reels™ — 16 custom slow-motion vertical videos. We have Gary breakdancing under disco lights at 0.0003 km/h, awkward snail dating, and 16-hour ASMR sleep with zero movement."`,
+      7: `<strong>[SCREENSHOT & POLISH]</strong><br/>"Here is our live UI. Notice the verified badge for Gary The Great, the live Slime Viscosity widget (99.4% slippery), and our organic Leaf Treasury. Everything is built with modern glassmorphism."`,
+      8: `<strong>[TECH STACK]</strong><br/>"Under the hood: 100% Vanilla ES6+ object-oriented architecture. We built a procedural Web Audio synthesizer that generates authentic cartoon chimes, tin-can ringtones, and mollusk gibberish right in the browser with zero external libraries!"`,
+      9: `<strong>[COMPETITION IMPACT]</strong><br/>"Why does SnailGram win this competition? First, pitch-perfect satire. Second, extraordinary design polish. Third, our user retention is unmatched — because snails literally can't reach the logout button in time!"`,
+      10: `<strong>[CLOSING & DEMO]</strong><br/>"Thank you! SnailGram was created by Shivang Sharma and Anugrah B Das. We invite the judges to take a sip of morning dew and explore slowly. Questions are welcome — but please ask them at 0.0007 km/h!"<br/><span class="notes-cue">💡 Action: Click 'Victory Applause' and open the live app demo!</span>`
+    };
+
+    let currentSlide = 1;
+    const totalSlides = 10;
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playSlideSound() {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(440, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.16);
+      } catch (e) {}
+    }
+
+    function playApplause() {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        for (let i = 0; i < 25; i++) {
+          setTimeout(() => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(300 + Math.random() * 400, ctx.currentTime);
+            gain.gain.setValueAtTime(0.08, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.09);
+          }, i * 45);
+        }
+      } catch (e) {}
+    }
+
+    function showSlide(slideNum) {
+      if (slideNum < 1 || slideNum > totalSlides) return;
+      
+      const slides = document.querySelectorAll('.slide');
+      slides.forEach(s => s.classList.remove('active'));
+
+      const target = document.querySelector(`.slide[data-slide="${slideNum}"]`);
+      if (target) target.classList.add('active');
+
+      currentSlide = slideNum;
+      document.getElementById('slide-indicator').textContent = `${String(currentSlide).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+      document.getElementById('progress-fill').style.width = `${(currentSlide / totalSlides) * 100}%`;
+
+      // Update speaker notes
+      const notesEl = document.getElementById('notes-text');
+      const notesNumEl = document.getElementById('notes-slide-num');
+      if (notesEl && notesNumEl) {
+        notesEl.innerHTML = SPEAKER_NOTES[currentSlide] || 'No notes for this slide.';
+        notesNumEl.textContent = `Slide ${currentSlide} / ${totalSlides}`;
+      }
+
+      playSlideSound();
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    function toggleSpeakerNotes() {
+      const drawer = document.getElementById('notes-drawer');
+      const btn = document.getElementById('btn-notes');
+      drawer.classList.toggle('hidden');
+      btn.classList.toggle('active');
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('btn-sound');
+      btn.textContent = soundEnabled ? "🔊 Sound: ON" : "🔇 Sound: OFF";
+      btn.classList.toggle('active', soundEnabled);
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key.toLowerCase() === 'n') {
+        toggleSpeakerNotes();
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullScreen();
+      } else if (e.key.toLowerCase() === 'home') {
+        showSlide(1);
+      } else if (e.key.toLowerCase() === 'end') {
+        showSlide(totalSlides);
+      }
+    });
+
+    // Touch / Swipe support
+    let touchStartX = 0;
+    window.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+    window.addEventListener('touchend', e => {
+      const touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextSlide();
+      if (touchEndX - touchStartX > 50) prevSlide();
+    });
+
+    // Initial setup
+    showSlide(1);
+  </script>
+</body>
+</html>

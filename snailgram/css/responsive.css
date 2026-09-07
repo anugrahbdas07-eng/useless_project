@@ -1,0 +1,221 @@
+/* SnailGram Responsive Media Queries & Mobile Navigation */
+
+/* Mobile Bottom Navigation Bar */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--bg-card-border);
+  z-index: 950;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.4rem;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: transform 0.2s, color 0.2s;
+  min-width: 48px;
+  min-height: 48px;
+}
+
+.mobile-nav-item:active {
+  transform: scale(0.9);
+}
+
+.mobile-nav-item.active {
+  color: var(--primary);
+}
+
+.mobile-nav-item .mobile-nav-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+/* Tablet Layout (<= 1024px) */
+@media (max-width: 1024px) {
+  .app-layout-container {
+    grid-template-columns: 200px 1fr;
+    gap: 1.25rem;
+  }
+
+  .desktop-right-sidebar {
+    display: none;
+  }
+
+  .landing-title {
+    font-size: 2.8rem;
+  }
+
+  .garden-podium-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .podium-card.rank-1 {
+    transform: none;
+  }
+
+  .analytics-charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 74px; /* Space for mobile bottom bar */
+  }
+
+  .global-top-nav {
+    padding: 0.65rem 1rem;
+  }
+
+  .desktop-nav-sidebar {
+    display: none;
+  }
+
+  .desktop-right-sidebar {
+    display: none;
+  }
+
+  .mobile-bottom-nav {
+    display: flex;
+  }
+
+  .app-layout-container {
+    grid-template-columns: 1fr;
+    margin: 0.75rem auto;
+    padding: 0 0.5rem;
+  }
+
+  .landing-title {
+    font-size: 2.2rem;
+  }
+
+  .landing-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .landing-bullets {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .landing-buttons-row {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .profile-header-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    gap: 1.25rem;
+  }
+
+  .profile-stats-row {
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .profile-actions-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .profile-tabs-nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+  .dm-layout-grid {
+    grid-template-columns: 1fr;
+    position: relative;
+    height: 75vh;
+  }
+
+  .dm-chat-pane {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: var(--bg-card);
+    z-index: 10;
+  }
+
+  .dm-chat-pane.mobile-chat-open {
+    display: flex;
+  }
+
+  .mobile-back-btn {
+    display: inline-flex !important;
+  }
+
+  .betting-controls-row {
+    grid-template-columns: 1fr;
+  }
+
+  .racer-selector-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .race-vs-badge {
+    margin: 0.25rem 0;
+  }
+
+  .useless-stats-table {
+    grid-template-columns: 1fr;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .snail-time-toasts-container {
+    bottom: 5rem;
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
+    width: auto;
+  }
+
+  .theme-options-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modal-content-card {
+    padding: 1.25rem;
+  }
+}
+
+.mobile-back-btn {
+  display: none;
+  font-size: 1.25rem;
+  margin-right: 0.25rem;
+}

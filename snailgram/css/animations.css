@@ -1,0 +1,226 @@
+/* SnailGram Keyframe Animations — Dancing, Reels & Physics */
+
+@keyframes snailWiggle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-6deg) scale(1.05); }
+  75% { transform: rotate(6deg) scale(1.05); }
+}
+
+@keyframes snailFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes slimePulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(167, 255, 235, 0.4); }
+  50% { box-shadow: 0 0 24px rgba(0, 230, 118, 0.85); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes slideInUp {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Dancing Snail Keyframes */
+@keyframes danceBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(-4deg); }
+  50% { transform: translateY(2px) rotate(0deg); }
+  75% { transform: translateY(-8px) rotate(4deg); }
+}
+
+@keyframes eyeWiggleLeft {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-15deg); }
+}
+
+@keyframes eyeWiggleRight {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+}
+
+/* Disco Ray Swings */
+@keyframes discoSwing1 {
+  0%, 100% { transform: rotate(-10deg); transform-origin: 180px 40px; }
+  50% { transform: rotate(15deg); transform-origin: 180px 40px; }
+}
+
+@keyframes discoSwing2 {
+  0%, 100% { transform: rotate(12deg); transform-origin: 180px 40px; }
+  50% { transform: rotate(-14deg); transform-origin: 180px 40px; }
+}
+
+/* Speed Motion Lines */
+@keyframes speedStream {
+  0% { stroke-dashoffset: 200; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* Gym Bench Press Barbell */
+@keyframes benchPress {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-24px); }
+}
+
+/* Heart Glow & Float */
+@keyframes heartFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.15); }
+}
+
+@keyframes heartGlowPulse {
+  0%, 100% { stroke: #A7FFEB; opacity: 0.7; }
+  50% { stroke: #FF4081; opacity: 1; }
+}
+
+/* Story Bar Progress Fill */
+@keyframes storyBarFill {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* Music Bars Animation */
+@keyframes barBounce {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+/* Poke Harassment & Shell Retraction */
+@keyframes squishPoke {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.2, 0.75); }
+  70% { transform: scale(0.85, 1.15); }
+  100% { transform: scale(1); }
+}
+
+/* Animation Utility Classes */
+.animate-slide-in { animation: slideInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-bounce-in { animation: bounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-fade-out { animation: fadeOut 0.3s ease forwards; }
+.animate-squish-poke { animation: squishPoke 0.5s ease-in-out; }
+
+.anim-dancing-snail {
+  animation: danceBob 0.65s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.anim-eye-left {
+  animation: eyeWiggleLeft 0.5s ease-in-out infinite;
+  transform-origin: 82px 45px;
+}
+
+.anim-eye-right {
+  animation: eyeWiggleRight 0.5s ease-in-out infinite;
+  transform-origin: 88px 45px;
+}
+
+.anim-disco-ray1 { animation: discoSwing1 2s ease-in-out infinite; }
+.anim-disco-ray2 { animation: discoSwing2 2.4s ease-in-out infinite; }
+
+.anim-speed-line1 { animation: speedStream 0.6s linear infinite; }
+.anim-speed-line2 { animation: speedStream 0.45s linear infinite; }
+.anim-speed-line3 { animation: speedStream 0.35s linear infinite; }
+
+.anim-drifting-snail {
+  animation: danceBob 0.4s ease-in-out infinite;
+}
+
+.anim-bench-press {
+  animation: benchPress 1.2s ease-in-out infinite;
+}
+
+.anim-heart-float {
+  animation: heartFloat 1.6s ease-in-out infinite;
+  display: inline-block;
+}
+
+.anim-heart-glow {
+  animation: heartGlowPulse 2s ease-in-out infinite;
+}
+
+.anim-slow-crawl {
+  animation: danceBob 3s ease-in-out infinite;
+}
+
+.active-animating-bar {
+  animation: storyBarFill 7.5s linear forwards;
+}
+
+.completed-bar {
+  width: 100% !important;
+}
+
+.music-bars-anim {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+}
+
+.music-bars-anim .bar {
+  width: 3px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.music-bars-anim .b1 { animation: barBounce 0.6s ease-in-out infinite; }
+.music-bars-anim .b2 { animation: barBounce 0.45s ease-in-out infinite 0.15s; }
+.music-bars-anim .b3 { animation: barBounce 0.7s ease-in-out infinite 0.3s; }
+
+/* Snail Retracted in Shell */
+.retracted-in-shell line,
+.retracted-in-shell circle[cx="35"],
+.retracted-in-shell circle[cx="43"],
+.retracted-in-shell path[d*="M30 36"],
+.retracted-in-shell polygon,
+.retracted-in-shell rect[width="18"] {
+  opacity: 0 !important;
+  transform: translateY(12px) scale(0.2);
+  transition: all 0.3s ease;
+}
+
+/* Floating Reactions */
+.floating-reel-heart, .floating-story-reaction {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(2);
+  font-size: 3.5rem;
+  z-index: 2000;
+  pointer-events: none;
+  animation: bounceIn 0.8s ease forwards;
+}
+
+@keyframes pingPulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  70% { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+@keyframes waveformBounce {
+  0% { height: 6px; }
+  100% { height: 34px; }
+}
+
+@keyframes bobPack {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-3px) rotate(-4deg); }
+}
+
+

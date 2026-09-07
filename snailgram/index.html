@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>SnailGram — The World's Slowest Social Network 🐌</title>
+  <meta name="description" content="Connect. Share. Wait. An intentionally absurd social media simulation where everything operates at snail speed." />
+
+  <!-- Google Fonts: Poppins & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Chart.js CDN for Creator Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="light-garden">
+
+  <!-- Garden Traffic Global Alert Banner -->
+  <div class="garden-traffic-banner hidden" id="garden-traffic-banner">
+    <span class="traffic-jam-snails">🐌🚗🐌🪱🐌</span>
+    <span>🚨 <strong>GARDEN TRAFFIC DETECTED:</strong> Services moving at 43% snail capacity due to caterpillar congestion!</span>
+  </div>
+
+  <!-- Global Sticky Navbar -->
+  <header class="global-top-nav hidden" id="global-top-navbar">
+    <div class="nav-brand-group snailgram-logo" onclick="window.SnailApp.navigate('home')">
+      <span class="brand-icon-snail">🐌</span>
+      <span class="brand-title">SnailGram</span>
+    </div>
+
+      <a href="presentation.html" target="_blank" class="btn btn-xs btn-primary" title="Open Presentation Deck / PPT" style="text-decoration: none;">
+        📽️ Pitch Deck (PPT)
+      </a>
+
+      <button class="btn btn-xs btn-secondary" onclick="window.SnailApp.navigate('reels')" title="Watch Snail Reels">
+        🎬 Snail Reels™
+      </button>
+
+      <button class="btn btn-xs btn-secondary" onclick="window.SnailEasterEggs.triggerTurboSnail()" title="Overclock your snail by +0.0001 km/h">
+        ⚡ Turbo Snail
+      </button>
+
+      <button class="btn btn-xs btn-secondary" onclick="window.SnailEasterEggs.openSpeedTest()" title="Take the Snail Speed Test">
+        🧘 How Slow Are You?
+      </button>
+
+      <div class="leaf-currency-pill" onclick="window.SnailEasterEggs.handleLeafClick()" title="Click to inspect leaves (or spam 5x for Leaf Overload!)">
+        <span>🌿</span>
+        <span id="header-leaf-count">35</span>
+      </div>
+
+      <div class="header-user-avatar-wrapper" onclick="window.SnailApp.navigate('profile')" id="header-user-avatar" title="View Your Snail Profile (Or click to poke!)">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= LANDING PAGE VIEW ================= -->
+  <section id="landing-page-view" class="landing-page-hero">
+    <div class="landing-snail-badge">🐌</div>
+    <h1 class="landing-title">SnailGram</h1>
+    <h2 class="landing-subtitle">The world's slowest social network.</h2>
+
+    <div class="landing-bullets">
+      <span>🌿 Connect with friends.</span>
+      <span>📸 Share your life.</span>
+      <span>⏳ Wait patiently.</span>
+    </div>
+
+    <div class="landing-buttons-row">
+      <button class="btn btn-primary btn-race-start" onclick="window.SnailApp.startOnboarding()">
+        ENTER THE GARDEN 🌿
+      </button>
+      <button class="btn btn-secondary" onclick="window.SnailApp.navigate('garden')">
+        MEET THE SNAILS 🐌
+      </button>
+      <button class="btn btn-secondary" onclick="window.SnailApp.navigate('reels')">
+        WATCH REELS 🎬
+      </button>
+    </div>
+
+    <div class="landing-features-grid">
+      <div class="glass-card feature-box">
+        <div class="feature-icon">⏳</div>
+        <h3>Snail Internet™</h3>
+        <p>Every single packet is physically walked across flowerbeds by a snail. Snails get hungry, distracted, or lost.</p>
+      </div>
+
+      <div class="glass-card feature-box">
+        <div class="feature-icon">🎬</div>
+        <h3>Snail Reels™</h3>
+        <p>Vertical short-form slow videos: watch Gary dance under hydrangea disco lights and take his GF Shelly on romantic dates.</p>
+      </div>
+
+      <div class="glass-card feature-box">
+        <div class="feature-icon">🗺️</div>
+        <h3>The Garden Map</h3>
+        <p>A physical map where snails crawl between the Oak Tree, Leaf Market, and Flower District in real time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MAIN APP THREE-COLUMN SHELL ================= -->
+  <div id="main-app-shell" class="app-layout-container hidden">
+
+    <!-- Left Desktop Sidebar Navigation -->
+    <aside class="desktop-nav-sidebar glass-card">
+      <div class="nav-brand-group snailgram-logo" style="padding: 0.5rem 0.75rem 1rem;" onclick="window.SnailApp.navigate('home')">
+        <span class="brand-icon-snail">🐌</span>
+        <span class="brand-title">SnailGram</span>
+      </div>
+
+      <button class="nav-link-item active" data-view="home" onclick="window.SnailApp.navigate('home')">
+        <span class="nav-icon">🏠</span>
+        <span>Home Feed</span>
+      </button>
+
+      <button class="nav-link-item" data-view="reels" onclick="window.SnailApp.navigate('reels')">
+        <span class="nav-icon">🎬</span>
+        <span>Snail Reels™</span>
+      </button>
+
+      <button class="nav-link-item" data-view="garden" onclick="window.SnailApp.navigate('garden')">
+        <span class="nav-icon">🌿</span>
+        <span>The Garden & Map</span>
+      </button>
+
+      <button class="nav-link-item" data-view="create" onclick="window.SnailApp.openCreatePostModal()">
+        <span class="nav-icon">➕</span>
+        <span>Create Post</span>
+      </button>
+
+      <a href="presentation.html" target="_blank" class="nav-link-item" style="color: var(--primary); font-weight: 700; text-decoration: none;">
+        <span class="nav-icon">📽️</span>
+        <span>Pitch Deck (PPT)</span>
+      </a>
+
+      <button class="nav-link-item" data-view="messages" onclick="window.SnailApp.navigate('messages')">
+        <span class="nav-icon">💬</span>
+        <span>Snail DMs (GPS)</span>
+      </button>
+
+
+
+      <button class="nav-link-item" data-view="analytics" onclick="window.SnailApp.navigate('analytics')">
+        <span class="nav-icon">📊</span>
+        <span>Analytics (0%)</span>
+      </button>
+
+      <button class="nav-link-item" data-view="profile" onclick="window.SnailApp.navigate('profile')">
+        <span class="nav-icon">👤</span>
+        <span>My Snail</span>
+      </button>
+
+      <button class="nav-link-item" onclick="window.SnailEasterEggs.openGardenerComplaintModal()">
+        <span class="nav-icon">📢</span>
+        <span>Complain to Gardener</span>
+      </button>
+
+      <button class="nav-link-item" data-view="settings" onclick="window.SnailApp.navigate('settings')">
+        <span class="nav-icon">⚙️</span>
+        <span>Settings</span>
+      </button>
+
+      <div style="margin-top: auto; padding-top: 1.5rem;">
+        <button class="nav-link-item text-danger" onclick="window.SnailEasterEggs.openLogoutModal()">
+          <span class="nav-icon">🚪</span>
+          <span>Log Out (Slowly)</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Center Main Feed Column -->
+    <main class="main-content-column">
+
+      <!-- View: Home Feed -->
+      <section class="app-view-container" data-view="home" id="view-home">
+        <!-- Stories Carousel -->
+        <div class="stories-card glass-card">
+          <div class="stories-scroll-wrapper" id="stories-scroll-container">
+            <!-- Rendered by SnailFeed -->
+          </div>
+        </div>
+
+        <!-- Feed Posts Container -->
+        <div id="feed-posts-container">
+          <!-- Rendered by SnailFeed -->
+        </div>
+      </section>
+
+      <!-- View: Snail Reels™ (Vertical Videos & Selection) -->
+      <section class="app-view-container hidden" data-view="reels" id="view-reels">
+        <div class="reels-layout-wrapper">
+          <div class="garden-hero-banner glass-card p-4">
+            <span class="badge snail-badge">🎬 VERTICAL SLOW MOTION</span>
+            <h2 class="my-1">Snail Reels™</h2>
+            <p class="text-muted">The world's slowest vertical video platform. Witness snails dance, sprint at 0.0008 km/h, and date in Sector 4.</p>
+          </div>
+
+          <!-- Main Vertical Video Player -->
+          <div class="reels-player-outer">
+            <div class="glass-card reels-player-card" id="reels-main-player-card">
+              <div id="reels-player-content">
+                <!-- Rendered by SnailReels -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Reels Selection Grid -->
+          <div class="glass-card p-4">
+            <h3 class="mb-3">🔥 Trending Snail Reels Selection</h3>
+            <div class="reels-selection-grid" id="reels-selection-grid">
+              <!-- Rendered by SnailReels -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- View: The Garden (Explore & Map) -->
+      <section class="app-view-container hidden" data-view="garden" id="view-garden">
+        <div class="garden-hero-banner glass-card p-4 mb-3">
+          <h2>🌿 THE GARDEN</h2>
+          <p class="text-muted">Explore the real-time physical sectors of our gastropod community.</p>
+          <div class="mt-3">
+            <input type="text" 
+                   id="garden-search-input" 
+                   class="form-input" 
+                   placeholder="Search garden by hashtag, snail handle, or leaf type..." 
+                   oninput="window.SnailGarden.handleSearch(this.value)" />
+          </div>
+        </div>
+
+        <!-- Interactive Garden Map Container -->
+        <div id="garden-map-container">
+          <!-- Rendered by SnailGarden -->
+        </div>
+
+        <!-- Trending Snails Podium -->
+        <h3 class="mb-2">🏆 Garden Fame Podium</h3>
+        <div class="garden-podium-grid" id="garden-podium-container">
+          <!-- Rendered by SnailGarden -->
+        </div>
+
+        <!-- Trending Hashtags -->
+        <h3 class="mb-2">🔥 Trending Foliage Tags</h3>
+        <div class="garden-hashtags-bar" id="garden-hashtags-container">
+          <!-- Rendered by SnailGarden -->
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="profile-tabs-nav mt-3">
+          <button class="profile-tab-btn garden-filter-tab active" onclick="window.SnailGarden.setFilter('all', this)">All Foliage</button>
+          <button class="profile-tab-btn garden-filter-tab" onclick="window.SnailGarden.setFilter('foodie', this)">🍃 Foodies</button>
+          <button class="profile-tab-btn garden-filter-tab" onclick="window.SnailGarden.setFilter('speed', this)">🏎️ Speedsters</button>
+          <button class="profile-tab-btn garden-filter-tab" onclick="window.SnailGarden.setFilter('philosophy', this)">🧠 Philosophers</button>
+        </div>
+
+        <!-- Explore Grid -->
+        <div class="garden-mosaic-grid mt-3" id="garden-grid-container">
+          <!-- Rendered by SnailGarden -->
+        </div>
+      </section>
+
+      <!-- View: Snail DMs (Messages & Tracking) -->
+      <section class="app-view-container hidden" data-view="messages" id="view-messages">
+        <div class="glass-card dm-layout-grid">
+          <div class="dm-contacts-sidebar" id="dm-contacts-container">
+            <!-- Rendered by SnailMessages -->
+          </div>
+
+          <div class="dm-chat-pane" id="dm-chat-pane">
+            <div class="dm-active-header" id="dm-active-header">
+              <!-- Rendered by SnailMessages -->
+            </div>
+
+            <div class="dm-messages-stream" id="dm-messages-stream">
+              <!-- Rendered by SnailMessages -->
+            </div>
+
+            <!-- Live Snail Route & ETA Telemetry Bar -->
+            <div class="dm-live-eta-bar" id="dm-live-eta-bar">
+              <!-- Rendered by SnailMessages -->
+            </div>
+
+            <form class="dm-composer-form" id="dm-composer-form" action="javascript:void(0);" onsubmit="window.SnailMessages.sendMessage(event); return false;">
+              <input type="text" 
+                     id="dm-message-input" 
+                     class="form-input" 
+                     placeholder="Type a message (dispatched via physical carrier snail)..." 
+                     maxlength="160" 
+                     autocomplete="off" />
+              <button type="button" class="btn btn-secondary btn-sm hidden" id="dm-undo-btn" onclick="window.SnailMessages.triggerUndo()">
+                ↩️ UNDO
+              </button>
+              <button type="button" class="btn btn-primary" id="dm-send-btn" onclick="window.SnailMessages.sendMessage(event)">Send 🐌</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+
+
+      <!-- View: Analytics & Uselessness -->
+      <section class="app-view-container hidden" data-view="analytics" id="view-analytics">
+        <div id="analytics-view-container">
+          <!-- Rendered by SnailAnalytics -->
+        </div>
+      </section>
+
+      <!-- View: Snail Profile -->
+      <section class="app-view-container hidden" data-view="profile" id="view-profile">
+        <div id="profile-view-container">
+          <!-- Rendered by SnailProfile -->
+        </div>
+      </section>
+
+      <!-- View: Settings -->
+      <section class="app-view-container hidden" data-view="settings" id="view-settings">
+        <div id="settings-view-container">
+          <!-- Rendered by SnailSettings -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Right Desktop Sidebar -->
+    <aside class="desktop-right-sidebar">
+      <!-- User Mini Profile -->
+      <div class="sidebar-user-card glass-card">
+        <div class="sidebar-user-avatar" id="sidebar-user-avatar" title="👈 Click snail to poke!">
+          <!-- Rendered dynamically -->
+        </div>
+        <h4 id="sidebar-user-name" class="m-0">Your Snail</h4>
+        <span id="sidebar-user-handle" class="text-muted" style="font-size: 0.8rem;">@username</span>
+        <div class="mt-2 text-muted" style="font-size: 0.85rem;">
+          🌿 Treasury: <strong id="sidebar-leaf-count">35</strong> Leaves
+        </div>
+        <button class="btn btn-sm btn-secondary mt-3 w-100" onclick="window.SnailApp.navigate('profile')">
+          View Full Profile
+        </button>
+      </div>
+
+      <!-- Snail Hydration & Slime Viscosity Meter -->
+      <div class="glass-card p-3" style="cursor: pointer;" onclick="if(window.SnailAudio) window.SnailAudio.playSquish(); alert('🧪 SLIME VISCOSITY AUDIT:\nYour mucus layer is 99.4% hydrated. Optimal slipperiness achieved. Zero friction detected with reality.')" title="Click to test mucus viscosity">
+        <div class="d-flex justify-content-between align-items-center">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--primary);">💧 SLIME VISCOSITY</span>
+          <span class="badge" style="background: #E0F2F1; color: #00796B;">99.4% SLIPPERY</span>
+        </div>
+        <div class="progress-bar-bg mt-2">
+          <div class="progress-bar-fill" style="width: 99.4%; background: linear-gradient(90deg, #80CBC4, #00E676);"></div>
+        </div>
+        <small class="text-muted d-block mt-1">Status: Extremely moist. Safe from birds.</small>
+      </div>
+
+      <!-- Trending Gastropods Widget -->
+      <div class="sidebar-trending-card glass-card">
+        <h4 class="mb-2">Suggested Mollusks</h4>
+        <div id="sidebar-trending-snails">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Garden Weather Widget -->
+      <div class="glass-card p-3">
+        <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary);">🌱 GARDEN CONDITIONS</div>
+        <div class="d-flex justify-content-between mt-2" style="font-size: 0.85rem;">
+          <span>Relative Humidity:</span>
+          <strong>96% (Slime heaven)</strong>
+        </div>
+        <div class="d-flex justify-content-between mt-1" style="font-size: 0.85rem;">
+          <span>Salt Hazard Level:</span>
+          <strong style="color: #4CAF50;">Zero (Safe to slide)</strong>
+        </div>
+        <div class="d-flex justify-content-between mt-1" style="font-size: 0.85rem;">
+          <span>Sprinkler Ambush:</span>
+          <strong>08:00 Tomorrow</strong>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-nav">
+    <button class="mobile-nav-item active" data-view="home" onclick="window.SnailApp.navigate('home')">
+      <span>🏠</span>
+      <span class="mobile-nav-label">Home</span>
+    </button>
+    <button class="mobile-nav-item" data-view="reels" onclick="window.SnailApp.navigate('reels')">
+      <span>🎬</span>
+      <span class="mobile-nav-label">Reels</span>
+    </button>
+    <button class="mobile-nav-item" data-view="garden" onclick="window.SnailApp.navigate('garden')">
+      <span>🔍</span>
+      <span class="mobile-nav-label">Garden</span>
+    </button>
+    <button class="mobile-nav-item" data-view="create" onclick="window.SnailApp.openCreatePostModal()">
+      <span>➕</span>
+      <span class="mobile-nav-label">Post</span>
+    </button>
+    <button class="mobile-nav-item" data-view="messages" onclick="window.SnailApp.navigate('messages')">
+      <span>💬</span>
+      <span class="mobile-nav-label">DMs</span>
+    </button>
+    <button class="mobile-nav-item" data-view="profile" onclick="window.SnailApp.navigate('profile')">
+      <span>👤</span>
+      <span class="mobile-nav-label">Profile</span>
+    </button>
+  </nav>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- Modal: Create Post -->
+  <div id="create-post-modal" class="modal-overlay hidden">
+    <div class="modal-content-card glass-card">
+      <div class="modal-header">
+        <h3>🐌 Create New Snail Post</h3>
+        <button class="icon-btn close-btn" onclick="window.SnailPosts.closeModal()">✕</button>
+      </div>
+
+      <form onsubmit="window.SnailPosts.submitPost(event)">
+        <label>Choose Foliage Artwork / Theme:</label>
+        <div class="theme-options-grid mt-2">
+          <div class="theme-option-card active" data-theme="dew" onclick="window.SnailPosts.selectTheme('dew')">
+            🌸 Morning Dew
+          </div>
+          <div class="theme-option-card" data-theme="cabbage" onclick="window.SnailPosts.selectTheme('cabbage')">
+            🥬 Savoy Cabbage
+          </div>
+          <div class="theme-option-card" data-theme="speed" onclick="window.SnailPosts.selectTheme('speed')">
+            🏎️ Drag Strip
+          </div>
+          <div class="theme-option-card" data-theme="zen" onclick="window.SnailPosts.selectTheme('zen')">
+            🪨 Zen Pebbles
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label style="font-size: 0.8rem;" class="text-muted">Or upload your own custom photo:</label>
+          <input type="file" accept="image/*" class="form-input mt-1" onchange="window.SnailPosts.handleImageUpload(event)" />
+        </div>
+
+        <div class="post-preview-box mb-3" id="post-image-preview" style="max-height: 180px; overflow: hidden; border-radius: 8px;">
+          <!-- Live SVG Preview -->
+        </div>
+
+        <!-- SnailMind AI Caption Generator -->
+        <div class="snailmind-card">
+          <div class="d-flex justify-content-between align-items-center">
+            <strong>🧠 SnailMind™ Caption Generator</strong>
+            <span class="badge" style="background: #EDE7F6; color: #673AB7;">AI Engine</span>
+          </div>
+          <p class="text-muted" style="font-size: 0.75rem; margin-top: 0.2rem;">
+            Generate unhinged gastropod thoughts matching your snail's mood:
+          </p>
+
+          <div class="snailmind-controls">
+            <select id="snailmind-mood-select" class="custom-select">
+              <option value="majestic">✨ Majestic Dewdrop Diva</option>
+              <option value="confused">🤔 Confused Gastropod</option>
+              <option value="sleepy">😴 In A 16-Hour Nap</option>
+              <option value="zen">🧘 Existential Zen Master</option>
+              <option value="hangry">😤 Hangry for Greens</option>
+              <option value="suspicious">🧐 Tinfoil Conspiracist</option>
+              <option value="linkedin">💼 LinkedIn Bro Hustler</option>
+              <option value="karen">🗣️ Karen Demanding Gardener</option>
+            </select>
+
+            <select id="snailmind-topic-select" class="custom-select">
+              <option value="leaf">🍃 Crisp Leaf</option>
+              <option value="dew">💧 Morning Dew</option>
+              <option value="race">🏎️ Supersonic Crawl</option>
+              <option value="nap">💤 Shell Slumber</option>
+              <option value="salt">🧂 Table Salt Hazard</option>
+              <option value="worm">🪱 Earthworm Staring Contest</option>
+            </select>
+          </div>
+
+          <button type="button" class="btn btn-sm btn-secondary w-100" onclick="window.SnailPosts.generateSnailMindCaption()">
+            ✨ Synthesize Caption with SnailMind™
+          </button>
+        </div>
+
+        <!-- Post Caption -->
+        <div class="mb-3">
+          <label>Caption:</label>
+          <textarea id="new-post-caption" rows="3" class="form-input mt-1" placeholder="Share your slow thoughts with the garden..." required></textarea>
+        </div>
+
+        <!-- Hashtag Chips -->
+        <div class="mb-3">
+          <label style="font-size: 0.8rem;" class="text-muted">Quick Hashtags:</label>
+          <div class="d-flex gap-1 flex-wrap mt-1">
+            <button type="button" class="btn btn-xs btn-secondary" onclick="window.SnailPosts.addHashtagToCaption('#LeafLife')">#LeafLife</button>
+            <button type="button" class="btn btn-xs btn-secondary" onclick="window.SnailPosts.addHashtagToCaption('#MucusHustle')">#MucusHustle</button>
+            <button type="button" class="btn btn-xs btn-secondary" onclick="window.SnailPosts.addHashtagToCaption('#SlowLife')">#SlowLife</button>
+            <button type="button" class="btn btn-xs btn-secondary" onclick="window.SnailPosts.addHashtagToCaption('#MovingFast')">#MovingFast</button>
+            <button type="button" class="btn btn-xs btn-secondary" onclick="window.SnailPosts.addHashtagToCaption('#DewGlowUp')">#DewGlowUp</button>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-4">
+          <label>Garden Location:</label>
+          <input type="text" id="new-post-location" class="form-input mt-1" value="Under The Lawn Chair Nobody Has Moved Since 2018 🪑" />
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-secondary" onclick="window.SnailPosts.closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            Post to Garden (Takes 20s) 🐌📦
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: First-Time Snail Onboarding -->
+  <div id="snail-creation-modal" class="modal-overlay hidden">
+    <div class="modal-content-card glass-card">
+      <div class="modal-header">
+        <div>
+          <span class="badge snail-badge">GENESIS</span>
+          <h2 class="m-0 mt-1">Hatch Your Snail 🐌</h2>
+        </div>
+        <button class="icon-btn close-btn" onclick="window.SnailApp.closeOnboarding()">✕</button>
+      </div>
+
+      <p class="text-muted" style="font-size: 0.85rem;">
+        Welcome to SnailGram. Customize your gastropod persona to begin slow living in the garden.
+      </p>
+
+      <div id="onboard-preview-card" class="p-3 mb-3 glass-card" style="background: var(--bg-secondary);">
+        <!-- Injected dynamically -->
+      </div>
+
+      <form onsubmit="window.SnailApp.submitOnboarding(event)">
+        <div class="mb-3">
+          <label>Snail Name / Handle:</label>
+          <input type="text" 
+                 id="onboard-name-input" 
+                 class="form-input mt-1" 
+                 value="Gary_The_Great" 
+                 required 
+                 oninput="window.SnailApp.updateOnboardingPreview()" />
+        </div>
+
+        <div class="mb-3">
+          <label>Personality Archetype:</label>
+          <select id="onboard-personality-select" class="custom-select mt-1" onchange="window.SnailApp.updateOnboardingPreview()">
+            <option value="influencer">⭐ Influencer (Aesthetic dew poses & #MucusHustle)</option>
+            <option value="foodie">🍃 Foodie (Critical leaf & compost reviews)</option>
+            <option value="philosopher">🧠 Philosopher (Contemplates the millimeter)</option>
+            <option value="conspiracy">👽 Conspiracy Theorist (The hose is a lie)</option>
+            <option value="lazy">😴 Lazy (Didn't blink today to save moisture)</option>
+            <option value="chaotic">🤪 Chaotic (Drank Red Bull condensation)</option>
+            <option value="introvert">🧘 Introvert (Never leaves shell)</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label>Favorite Food Delicacy:</label>
+          <select id="onboard-food-select" class="custom-select mt-1" onchange="window.SnailApp.updateOnboardingPreview()">
+            <option value="Artisanal Romaine Lettuce">Artisanal Romaine Lettuce (Single-Origin)</option>
+            <option value="Royal Savoy Cabbage">Royal Savoy Cabbage</option>
+            <option value="Organic Baby Spinach">Organic Baby Spinach</option>
+            <option value="Wet Cardboard from Amazon Box">Wet Cardboard from Amazon Box (Guilty Pleasure)</option>
+          </select>
+        </div>
+
+        <div class="d-flex gap-3 mb-4">
+          <div class="flex-1">
+            <label>Shell Color:</label>
+            <input type="color" id="onboard-shell-color" value="#4CAF50" class="form-input mt-1" style="height: 44px; padding: 2px;" onchange="window.SnailApp.updateOnboardingPreview()" />
+          </div>
+          <div class="flex-1">
+            <label>Body Color:</label>
+            <input type="color" id="onboard-body-color" value="#81C784" class="form-input mt-1" style="height: 44px; padding: 2px;" onchange="window.SnailApp.updateOnboardingPreview()" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 btn-race-start">
+          ENTER THE GARDEN (Claim 🌿 35 Leaves)
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Snail Shell Customizer (Profile) -->
+  <div id="snail-customizer-modal" class="modal-overlay hidden">
+    <div class="modal-content-card glass-card">
+      <div class="modal-header">
+        <h3>🎨 Customize Your Snail Shell</h3>
+        <button class="icon-btn close-btn" onclick="window.SnailProfile.closeCustomizerModal()">✕</button>
+      </div>
+
+      <div id="customizer-preview-snail" class="text-center p-3 mb-3">
+        <!-- Live preview -->
+      </div>
+
+      <div class="mb-3">
+        <label>Display Name:</label>
+        <input type="text" id="custom-display-name" class="form-input mt-1" />
+      </div>
+
+      <div class="mb-3">
+        <label>Bio Tagline:</label>
+        <textarea id="custom-bio" rows="2" class="form-input mt-1"></textarea>
+      </div>
+
+      <div class="d-flex gap-3 mb-4">
+        <div class="flex-1">
+          <label>Shell Color:</label>
+          <input type="color" id="custom-shell-color" value="#4CAF50" class="form-input mt-1" style="height: 44px;" onchange="window.SnailProfile.updateCustomizerPreview()" />
+        </div>
+        <div class="flex-1">
+          <label>Body Color:</label>
+          <input type="color" id="custom-body-color" value="#81C784" class="form-input mt-1" style="height: 44px;" onchange="window.SnailProfile.updateCustomizerPreview()" />
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-secondary" onclick="window.SnailProfile.closeCustomizerModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="window.SnailProfile.saveCustomization()">Save New Look ✨</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Generic Dialog (Stories, Race Victory, Slow Logout, Gardener Complaints, Tracking) -->
+  <div id="generic-dialog-modal" class="modal-overlay hidden">
+    <!-- Rendered dynamically by modules -->
+  </div>
+
+  <!-- Core Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/snail-time.js"></script>
+  <script src="js/feed.js"></script>
+  <script src="js/posts.js"></script>
+  <script src="js/garden.js"></script>
+  <script src="js/reels.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/messages.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/easter-eggs.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
